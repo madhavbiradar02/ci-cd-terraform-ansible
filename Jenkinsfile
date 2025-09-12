@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/madhavbiradar02/ci-cd-terraform-ansible.git'
+                git branch: 'main',
+                    url: 'https://github.com/madhavbiradar02/ci-cd-terraform-ansible.git'
             }
         }
 
