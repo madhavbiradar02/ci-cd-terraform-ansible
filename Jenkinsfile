@@ -1,47 +1,33 @@
 pipeline {
     agent any
-
+    
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/madhavbiradar02/ci-cd-terraform-ansible.git'
+                git branch: 'main', url: 'https://github.com/<your-username>/<repo>.git'
             }
         }
-
-        stage('Build & Test') {
+        
+        stage('Build') {
             steps {
-                sh 'docker build -t myapp -f docker/Dockerfile .'
-                sh 'docker run --rm myapp npm test'
+                echo "Building the project..."
+                sh 'echo "Build step here"'
             }
         }
-
-        stage('Push to DockerHub') {
+        
+        stage('Test') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds',
-                  usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh 'echo $PASS | docker login -u $USER --password-stdin'
-                    sh 'docker tag myapp $USER/myapp:latest'
-                    sh 'docker push $USER/myapp:latest'
-                }
+                echo "Running tests..."
+                sh 'echo "Run test commands here"'
             }
         }
-
-        stage('Provision Infra with Terraform') {
+        
+        stage('Deploy') {
             steps {
-                dir('terraform') {
-                    sh 'terraform init'
-                    sh 'terraform apply -auto-approve'
-                }
-            }
-        }
-
-        stage('Configure with Ansible') {
-            steps {
-                dir('ansible') {
-                    sh 'ansible-playbook -i inventory.ini playbook.yml'
-                }
+                echo "Deploying application..."
+                sh 'echo "Deploy step here"'
             }
         }
     }
 }
+
