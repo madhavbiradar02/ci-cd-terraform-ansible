@@ -6,7 +6,7 @@ This project demonstrates:
 - Configuration Management using Ansible
 - Dockerized Node.js App deployed on AWS EC2
 
-## Steps:
+## Steps:-
 1. Clone repo & update Terraform variables
 2. Configure Jenkins credentials for DockerHub
 3. Run Jenkins pipeline
